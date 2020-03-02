@@ -1,0 +1,45 @@
+.map {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-color: #E5E5E5;
+}
+
+.wall,
+.ground,
+.box,
+.hero {
+    position: absolute;
+    width: 10%;
+    height: 10%;
+}
+
+.wall,
+.ground {
+    z-index: 1;
+}
+
+.box,
+.hero {
+    z-index: 2;
+}
+
+.wall {
+    background-color: red;
+}
+
+.ground {
+    background-color: blue;
+}
+
+.box {
+    background-color: green;
+}
+
+.hero {
+    width: 5%;
+    height: 5%;
+    border-radius: 50%;
+    transform: translate(50%, 50%);
+    background-color: yellow;
+}
