@@ -1,45 +1,7 @@
 class Hero {
 
-    constructor(hero, map) {
-        this.x = hero.x;
-        this.y = hero.y;
+    constructor() {
         this.heroElt = document.getElementById('hero');
-        this.map = map;
-    }
-
-    getType(direction) {
-        let type = null;
-
-        this.map.forEach(elt => {
-
-            switch (direction) {
-                case 'top':
-                    if (elt.x === this.x && elt.y === (this.y - 1)) {
-                        type = elt.type;
-                    }
-                break;
-
-                case 'right':
-                    if (elt.x === (this.x + 1) && elt.y === this.y) {
-                        type = elt.type;
-                    }
-                break;
-
-                case 'bottom':
-                    if (elt.x === this.x && elt.y === (this.y + 1)) {
-                        type = elt.type;
-                    }
-                break;
-
-                case 'left':
-                    if (elt.x === (this.x - 1) && elt.y === this.y) {
-                        type = elt.type;
-                    }
-                break;
-            }
-        });
-
-        return type;
     }
 
     canMove(type) {
@@ -61,45 +23,30 @@ class Hero {
     }
 
     move() {
-        this.heroElt.style.left = (this.x * 10) + '%';
-        this.heroElt.style.top = (this.y * 10) + '%';
-        console.log(`x: ${this.x}, y: ${this.y}`);
+        this.heroElt.style.left = (levelData.hero[0] * 10) + '%';
+        this.heroElt.style.top = (levelData.hero[1] * 10) + '%';
+        console.log(`x: ${levelData.hero[0]}, y: ${levelData.hero[1]}`);
     }
 
     moveTop() {
-        if (this.canMove(this.getType('top'))) {
-            this.y -= 1;
-            this.move(this.x, this.y);
-        } else {
-            console.error('Impossible to move');
-        }
+        levelData.hero[1] -= 1;
+        this.move();
     }
 
     moveRight() {
-        if (this.canMove(this.getType('right'))) {
-            this.x += 1;
-            this.move(this.x, this.y);
-        } else {
-            console.error('Impossible to move');
-        }
+        levelData.hero[0] += 1;
+        this.move();
     }
 
     moveBottom() {
-        if (this.canMove(this.getType('bottom'))) {
-            this.y += 1;
-            this.move(this.x, this.y);
-        } else {
-            console.error('Impossible to move');
-        }
+        levelData.hero[1] += 1;
+        this.y += 1;
+        this.move();
     }
 
     moveLeft() {
-        if (this.canMove(this.getType('left'))) {
-            this.x -= 1;
-            this.move(this.x, this.y);
-        } else {
-            console.error('Impossible to move');
-        }
+        levelData.hero[0] -= 1;
+        this.move();
     }
 }
 
