@@ -7,7 +7,11 @@
 
 let levelData = {
     hero: [1,1],
-    boxes: [3,2],
+    boxes: [
+        [3,2],
+        [2,4],
+        [3,6]
+    ],
     map: {
         blocsPerRow: 10,
         blocs: [

@@ -4,7 +4,7 @@ class Map {
         this.mapElt = document.getElementById('map');
     }
 
-    generateBloc(index, type) {
+    generateBloc(type, index) {
         const blocElt = document.createElement('div');
 
         switch (type) {
@@ -22,8 +22,8 @@ class Map {
         const x = index % levelData.map.blocsPerRow,
               y = (index - x) / levelData.map.blocsPerRow;
 
-        blocElt.style.left = (x * 10) + '%';
-        blocElt.style.top = (y * 10) + '%';
+        blocElt.style.left = (x * levelData.map.blocsPerRow) + '%';
+        blocElt.style.top = (y * levelData.map.blocsPerRow) + '%';
 
         this.mapElt.appendChild(blocElt);
     }
@@ -34,37 +34,18 @@ class Map {
         return index;
     }
 
-    getBlocType(x, y, direction) {
-        let type = null;
-
-        levelData.map.blocs.forEach(elt => {
-
-            switch (direction) {
-                case 'top':
-                    type = levelData.map.blocs[(this.getIndex(x, y) - levelData.map.blocsPerRow)];
-                break;
-
-                case 'right':
-                    type = levelData.map.blocs[(this.getIndex(x, y) + 1)];
-                break;
-
-                case 'bottom':
-                    type = levelData.map.blocs[(this.getIndex(x, y) + levelData.map.blocsPerRow)];
-                break;
-
-                case 'left':
-                    type = levelData.map.blocs[(this.getIndex(x, y) - 1)];
-                break;
-            }
-        });
-
-        return type;
+    isWall(x, y) {
+        if(levelData.map.blocs[this.getIndex(x, y)] === 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     init() {
-        for (let i = 0; i <= levelData.map.blocs.length - 1; i++) {
-            this.generateBloc(i, levelData.map.blocs[i]);
-        }
+        levelData.map.blocs.forEach((bloc, i) => {
+            this.generateBloc(bloc, i);
+        });
     }
 }
 
