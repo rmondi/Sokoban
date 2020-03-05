@@ -4,7 +4,7 @@ class Map {
         this.mapElt = document.getElementById('map');
     }
 
-    generateBloc(type, index) {
+    generate(type, index) {
         const blocElt = document.createElement('div');
 
         switch (type) {
@@ -44,7 +44,7 @@ class Map {
 
     init() {
         levelData.map.blocs.forEach((bloc, i) => {
-            this.generateBloc(bloc, i);
+            this.generate(bloc, i);
         });
     }
 }

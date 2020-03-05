@@ -4,9 +4,10 @@ class Box {
         this.mapElt = document.getElementById('map');
     }
 
-    generateBox(box) {
+    generate(box, i) {
         const boxElt = document.createElement('div');
         boxElt.classList.add('box');
+        boxElt.id = i;
         boxElt.style.left = (box[0] * levelData.map.blocsPerRow) + '%';
         boxElt.style.top = (box[1] * levelData.map.blocsPerRow) + '%';
 
@@ -14,6 +15,18 @@ class Box {
     }
 
     isBox(x, y) {
+        let isBox = false;
+
+        levelData.boxes.forEach((box, i) => {
+            if (box[0] === x && box[1] === y) {
+                isBox = true;
+            }
+        });
+
+        return isBox;
+    }
+
+    getIndex(x, y) {
         let index = null;
 
         levelData.boxes.forEach((box, i) => {
@@ -25,17 +38,34 @@ class Box {
         return index;
     }
 
-    getBoxCoords(index) {
-        
-    }
+    move(index, direction) {
+        const boxElt = document.getElementById(index);
 
-    move(index, x, y) {
+        switch (direction) {
+            case 'left':
+                levelData.boxes[index][0] -= 1;
+            break;
 
+            case 'up':
+                levelData.boxes[index][1] -= 1;
+            break;
+
+            case 'right':
+                levelData.boxes[index][0] += 1;
+            break;
+
+            case 'down':
+                levelData.boxes[index][1] += 1;
+            break;
+        }
+
+        boxElt.style.left = (levelData.boxes[index][0] * levelData.map.blocsPerRow) + '%';
+        boxElt.style.top = (levelData.boxes[index][1] * levelData.map.blocsPerRow) + '%';
     }
 
     init() {
-        levelData.boxes.forEach(box => {
-            this.generateBox(box);
+        levelData.boxes.forEach((box, i) => {
+            this.generate(box, i);
         });
     }
 }

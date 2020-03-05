@@ -11,14 +11,59 @@ box.init();
 hero.move();
 
 function action(x, y, direction) {
-    if (!map.isWall(x, y)) {
-        const isBox = box.isBox(x, y);
 
-        if (isBox != null) {
-            console.log(isBox);
+    if (!map.isWall(x, y)) {
+
+        if (box.isBox(x, y)) {
+
+            switch (direction) {
+
+                case 'left':
+                    if (!map.isWall((x - 1), y) && !box.isBox((x - 1), y)) {
+                        hero.move(direction);
+                        box.move(box.getIndex(x, y), direction);
+
+                    } else {
+                        console.error('Impossible to move');
+                    }
+                break;
+
+                case 'up':
+                    if (!map.isWall(x, (y - 1)) && !box.isBox(x, (y - 1))) {
+                        hero.move(direction);
+                        box.move(box.getIndex(x, y), direction);
+
+                    } else {
+                        console.error('Impossible to move');
+                    }
+                break;
+
+                case 'right':
+                    if (!map.isWall((x + 1), y) && !box.isBox((x + 1), y)) {
+                        hero.move(direction);
+                        box.move(box.getIndex(x, y), direction);
+
+                    } else {
+                        console.error('Impossible to move');
+                    }
+                break;
+
+                case 'down':
+                    if (!map.isWall(x, (y + 1)) && !box.isBox(x, (y + 1))) {
+                        hero.move(direction);
+                        box.move(box.getIndex(x, y), direction);
+
+                    } else {
+                        console.error('Impossible to move');
+                    }
+                break;
+            }
+
+
         } else {
             hero.move(direction);
         }
+
     } else {
         console.error('Impossible to move');
     }
